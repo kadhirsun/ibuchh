@@ -15,6 +15,6 @@ public class MathSOAPClient {
 		System.out.println("++++++++++++++++++++++++");
 		System.out.println("The SUM is :"+clientIMath.add(9, 34));
 		System.out.println("++++++++++++++++++++++++");
-
+   
 	}
 }
