@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2010 Talend Inc. - www.talend.com -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap"
+	xsi:schemaLocation="
+         http://www.springframework.org/schema/beans 
+         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+         http://cxf.apache.org/jaxrs
+         http://cxf.apache.org/schemas/jaxrs.xsd
+         http://cxf.apache.org/jaxws
+         http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+	<jaxrs:server id="IMathREST" address="/iMathREST">
+		<jaxrs:serviceBeans>
+			<ref bean="IMath" />
+		</jaxrs:serviceBeans>
+	</jaxrs:server>
+		
+	<jaxws:endpoint xmlns:s="http://www.ksu.edu.sa/math"
+		serviceName="s:MathService" endpointName="s:MathServicePort" id="IMathSOAP"
+		implementor="#IMath" address="/iMathSOAP" />
+	
+	<bean id="IMath" class="service.codefirst.MathImpl" />
+	
+</beans>
+
