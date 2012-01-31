@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<hwTaskFlows xmlns="http://xmlns.oracle.com/bpel/workflow/hwTaskFlowProperties">
+   <ApplicationName>worklist</ApplicationName>
+   <LookupType>LOCAL</LookupType>
+   <TaskFlowDeploy>false</TaskFlowDeploy>
+   <SoaServer>
+      <ejbProviderUrl/>
+      <aliasKeyName/>
+      <keyName/>
+      <connectionName/>
+   </SoaServer>
+   <TaskFlowServer>
+      <hostName/>
+      <httpPort/>
+      <httpsPort/>
+   </TaskFlowServer>
+<hwTaskFlow><WorkflowName>VacationRequestTask</WorkflowName><TaskDefinitionNamespace>http://xmlns.oracle.com/VacationRequestApp/VacationRequest/VacationRequestTask</TaskDefinitionNamespace><TaskFlowId>VacationRequestTask_TaskFlow</TaskFlowId><TaskFlowFileName>WEB-INF/VacationRequestTask_TaskFlow.xml</TaskFlowFileName></hwTaskFlow></hwTaskFlows>
