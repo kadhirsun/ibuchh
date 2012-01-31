@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.60.13" id="indexPageDef"
+                Package="com.oracle.web.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="root" RangeSize="25" DataControl="HRFacadeLocal"
+              id="HRFacadeLocalIterator" ChangeEventPolicy="ppr"/>
+    <accessorIterator MasterBinding="HRFacadeLocalIterator"
+                      Binds="departmentsFindAll" RangeSize="25"
+                      DataControl="HRFacadeLocal"
+                      BeanClass="com.oracle.model.Departments"
+                      id="departmentsFindAllIterator" ChangeEventPolicy="ppr"/>
+    <accessorIterator MasterBinding="departmentsFindAllIterator"
+                      Binds="employeesList" RangeSize="-1"
+                      DataControl="HRFacadeLocal"
+                      BeanClass="com.oracle.model.Employees"
+                      id="employeesListIterator" ChangeEventPolicy="ppr"/>
+    <searchRegion Binds="employeesListIterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="employeesListQuery"/>
+    <taskFlow id="findBySalflow1"
+              taskFlowId="/WEB-INF/findBySal-flow.xml#findBySal-flow"
+              activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="departmentsFindAllIterator" id="departmentId">
+      <AttrNames>
+        <Item Value="departmentId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="departmentsFindAllIterator"
+                     id="departmentName">
+      <AttrNames>
+        <Item Value="departmentName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="departmentsFindAllIterator" id="locationId">
+      <AttrNames>
+        <Item Value="locationId"/>
+      </AttrNames>
+    </attributeValues>
+    <action IterBinding="departmentsFindAllIterator" id="First"
+            RequiresUpdateModel="true" Action="first"/>
+    <action IterBinding="departmentsFindAllIterator" id="Previous"
+            RequiresUpdateModel="true" Action="previous"/>
+    <action IterBinding="departmentsFindAllIterator" id="Next"
+            RequiresUpdateModel="true" Action="next"/>
+    <action IterBinding="departmentsFindAllIterator" id="Last"
+            RequiresUpdateModel="true" Action="last"/>
+    <tree IterBinding="employeesListIterator" id="employeesList">
+      <nodeDefinition DefName="com.oracle.model.Employees"
+                      Name="employeesList0">
+        <AttrNames>
+          <Item Value="commissionPct"/>
+          <Item Value="email"/>
+          <Item Value="employeeId"/>
+          <Item Value="firstName"/>
+          <Item Value="hireDate"/>
+          <Item Value="jobId"/>
+          <Item Value="lastName"/>
+          <Item Value="phoneNumber"/>
+          <Item Value="salary"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="employeesListIterator" id="email">
+      <AttrNames>
+        <Item Value="email"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="employeesListIterator" id="employeeId">
+      <AttrNames>
+        <Item Value="employeeId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="employeesListIterator" id="firstName">
+      <AttrNames>
+        <Item Value="firstName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="employeesListIterator" id="hireDate">
+      <AttrNames>
+        <Item Value="hireDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="employeesListIterator" id="jobId">
+      <AttrNames>
+        <Item Value="jobId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="employeesListIterator" id="lastName">
+      <AttrNames>
+        <Item Value="lastName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="employeesListIterator" id="phoneNumber">
+      <AttrNames>
+        <Item Value="phoneNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="employeesListIterator" id="salary">
+      <AttrNames>
+        <Item Value="salary"/>
+      </AttrNames>
+    </attributeValues>
+    <graph IterBinding="employeesListIterator" id="employeesList1"
+           xmlns="http://xmlns.oracle.com/adfm/dvt" type="BAR_VERT_CLUST">
+      <graphDataMap leafOnly="true">
+        <series>
+          <item value="firstName"/>
+        </series>
+        <groups>
+          <data>
+            <item value="salary"/>
+          </data>
+        </groups>
+      </graphDataMap>
+    </graph>
+    <graph IterBinding="employeesListIterator" id="employeesList2"
+           xmlns="http://xmlns.oracle.com/adfm/dvt" type="PIE">
+      <graphDataMap leafOnly="true">
+        <series>
+          <item value="salary"/>
+        </series>
+        <groups>
+          <data>
+            <item value="employeeId"/>
+          </data>
+        </groups>
+      </graphDataMap>
+    </graph>
+    <action IterBinding="departmentsFindAllIterator" id="Create"
+            RequiresUpdateModel="true" Action="createRow"/>
+    <action IterBinding="departmentsFindAllIterator" id="Delete"
+            RequiresUpdateModel="false" Action="removeCurrentRow"/>
+    <methodAction id="persistDepartments" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="persistDepartments"
+                  IsViewObjectMethod="false" DataControl="HRFacadeLocal"
+                  InstanceName="HRFacadeLocal.dataProvider"
+                  ReturnName="data.HRFacadeLocal.methodResults.persistDepartments_HRFacadeLocal_dataProvider_persistDepartments_result">
+      <NamedData NDName="departments"
+                 NDValue="#{bindings.departmentsFindAllIterator.currentRow.dataProvider}"
+                 NDType="com.oracle.model.Departments"/>
+    </methodAction>
+    <methodAction id="removeDepartments" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="removeDepartments"
+                  IsViewObjectMethod="false" DataControl="HRFacadeLocal"
+                  InstanceName="HRFacadeLocal.dataProvider">
+      <NamedData NDName="departments"
+                 NDValue="#{bindings.departmentsFindAllIterator.currentRow.dataProvider}"
+                 NDType="com.oracle.model.Departments"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

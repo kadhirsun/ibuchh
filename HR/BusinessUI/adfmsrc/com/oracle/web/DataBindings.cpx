@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application"
+             version="11.1.1.60.13" id="DataBindings" SeparateXMLFiles="false"
+             Package="com.oracle.web" ClientType="Generic">
+  <definitionFactories>
+    <factory nameSpace="http://xmlns.oracle.com/adfm/dvt"
+             className="oracle.adfinternal.view.faces.dvt.model.binding.FacesBindingFactory"/>
+    <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding"
+             className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+    <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
+  </definitionFactories>
+  <pageMap>
+    <page path="/index.jspx" usageId="com_oracle_web_indexPageDef"/>
+    <page path="/findBySalForm.jsff"
+          usageId="com_oracle_web_findBySalFormPageDef"/>
+    <page path="/findBySalResults.jsff"
+          usageId="com_oracle_web_findBySalResultsPageDef"/>
+  </pageMap>
+  <pageDefinitionUsages>
+    <page id="com_oracle_web_indexPageDef"
+          path="com.oracle.web.pageDefs.indexPageDef"/>
+    <page id="com_oracle_web_findBySalFormPageDef"
+          path="com.oracle.web.pageDefs.findBySalFormPageDef"/>
+    <page id="com_oracle_web_findBySalResultsPageDef"
+          path="com.oracle.web.pageDefs.findBySalResultsPageDef"/>
+  </pageDefinitionUsages>
+  <dataControlUsages>
+    <dc id="HRFacadeLocal" path="com.oracle.model.HRFacadeLocal"/>
+  </dataControlUsages>
+</Application>

@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+  <f:view>
+    <af:document id="d1">
+      <af:form id="f1">
+        <af:pageTemplate viewId="/oracle/templates/threeColumnTemplate.jspx"
+                         id="pt1">
+          <f:facet name="center">
+            <af:panelTabbed id="pt2">
+              <af:showDetailItem text="Welcome" id="sdi1"
+                                 stretchChildren="first">
+                <af:panelSplitter id="ps1" splitterPosition="310">
+                  <f:facet name="first">
+                   
+                      <af:decorativeBox id="db1" theme="light">
+                        <f:facet name="center">
+                        <af:group id="g1">
+                          <af:panelBox text="General Information" id="pb1"/>
+                        </af:group>
+                      </f:facet>
+                      </af:decorativeBox>
+                    
+                  </f:facet>
+                  <f:facet name="second">
+                   <!-- <af:decorativeBox id="db3" theme="medium">
+                      <f:facet name="center">
+                        <af:group id="g2">-->
+                          <af:panelSplitter id="ps2" orientation="vertical">
+                            <f:facet name="first">
+                              <af:panelBox text="Items" id="pb2"/>
+                            </f:facet>
+                            <f:facet name="second">
+                              <af:panelTabbed id="pt3">
+                                <af:showDetailItem text="Item Details" id="sdi4"
+                                                   stretchChildren="first">
+                                  <af:panelBox text="Details" id="pb3"/>
+                                </af:showDetailItem>
+                                <af:showDetailItem text="Graphs" id="sdi5"
+                                                   stretchChildren="first">
+                                  <af:panelBox text="Graphs" id="pb4"/>
+                                </af:showDetailItem>
+                                <af:showDetailItem text="Gauge" id="sdi6"
+                                                   stretchChildren="first">
+                                 <!-- <af:decorativeBox id="db7" theme="medium">
+                                    <f:facet name="center">-->
+                                      <af:panelBox text="Gauge" id="pb5"/>
+                                   <!-- </f:facet>
+                                  </af:decorativeBox>-->
+                                </af:showDetailItem>
+                              </af:panelTabbed>
+                            </f:facet>
+                          </af:panelSplitter>
+                       <!-- </af:group>
+                      </f:facet>
+                    </af:decorativeBox>-->
+                  </f:facet>
+                </af:panelSplitter>
+              </af:showDetailItem>
+              <af:showDetailItem text="Items" id="sdi2"
+                                 stretchChildren="first"/>
+              <af:showDetailItem text="Item Details" id="sdi3"
+                                 stretchChildren="first"/>
+            </af:panelTabbed>
+          </f:facet>
+          <f:facet name="header"/>
+          <f:facet name="end"/>
+          <f:facet name="start"/>
+          <f:facet name="branding"/>
+          <f:facet name="copyright"/>
+          <f:facet name="status"/>
+          <f:attribute name="startColumnSize" value="0"/>
+          <f:attribute name="endColumnSize" value="0"/>
+        </af:pageTemplate>
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>

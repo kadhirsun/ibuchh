@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.60.13" id="findBySalFormPageDef"
+                Package="com.oracle.web.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables">
+      <variable Type="java.lang.Object" Name="getEmployeesFindBySal__salary"
+                IsQueriable="false"/>
+      <variable Type="java.math.BigDecimal"
+                Name="getEmployeesFindBySal1__salary" IsQueriable="false"/>
+    </variableIterator>
+    <methodIterator Binds="getEmployeesFindBySal.result"
+                    DataControl="HRFacadeLocal" RangeSize="25"
+                    BeanClass="com.oracle.model.Employees"
+                    id="getEmployeesFindBySalIterator"/>
+  </executables>
+  <bindings>
+    <methodAction id="getEmployeesFindBySal" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="getEmployeesFindBySal"
+                  IsViewObjectMethod="false" DataControl="HRFacadeLocal"
+                  InstanceName="HRFacadeLocal.dataProvider"
+                  ReturnName="data.HRFacadeLocal.methodResults.getEmployeesFindBySal_HRFacadeLocal_dataProvider_getEmployeesFindBySal_result">
+      <NamedData NDName="_salary" NDType="java.lang.String"
+                 NDValue="${bindings.getEmployeesFindBySal__salary}"/>
+    </methodAction>
+    <attributeValues IterBinding="variables" id="_salary">
+      <AttrNames>
+        <Item Value="getEmployeesFindBySal__salary"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>
