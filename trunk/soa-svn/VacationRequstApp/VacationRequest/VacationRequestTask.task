@@ -1,0 +1,56 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<taskDefinition targetNamespace="http://xmlns.oracle.com/VacationRequestApp/VacationRequest/VacationRequestTask" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:orcl="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:task="http://xmlns.oracle.com/bpel/workflow/task" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://xmlns.oracle.com/bpel/workflow/taskDefinition"
+                xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+                xmlns:mhdr="http://www.oracle.com/XSL/Transform/java/oracle.tip.mediator.service.common.functions.MediatorExtnFunction"
+                xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+                xmlns:ns0="http://xmlns.oracle.com/bpel/workflow/common"
+                xmlns:evidence="http://xmlns.oracle.com/bpel/workflow/TaskEvidenceService"
+                xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+                xmlns:ns1="http://xmlns.oracle.com/VacationRequest"
+                xmlns:med="http://schemas.oracle.com/mediator/xpath"
+                xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+                xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+                xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+                xmlns:socket="http://www.oracle.com/XSL/Transform/java/oracle.tip.adapter.socket.ProtocolTranslator">
+   <name>VacationRequestTask</name>
+   <id>${domain_id}_${process_id}_${process_revision}_VacationRequestTask</id>
+   <priority>3</priority>
+   <process processId="" processVersion=""/>
+   <routingSlip xmlns="http://xmlns.oracle.com/bpel/workflow/routingSlip">
+      <globalConfiguration/>
+      <participants isAdhocRoutingSupported="false">
+         <stage name="Stage1">
+            <participant name="Manager">
+               <resource type="XPATH" identityType="user">ids:getManager(/task:task/task:payload/ns1:VacationRequestProcessRequest/ns1:creator)</resource>
+            </participant>
+         </stage>
+      </participants>
+      <notification includeTaskAttachments="false" actionable="false"
+                    secureNotifications="false">
+         <action name="ASSIGN" recipient="ASSIGNEES"><![CDATA[concat(string('Task '), /task:task/task:title, string(' requires your attention.'))]]></action>
+         <action name="COMPLETE" recipient="CREATOR"><![CDATA[concat(string('Task '), /task:task/task:title, string(' requires your attention.'))]]></action>
+         <action name="ERROR" recipient="OWNER"><![CDATA[concat(string('Task '), /task:task/task:title, string(' requires your attention.'))]]></action>
+      </notification>
+   </routingSlip>
+   <workflowConfiguration xmlns="http://xmlns.oracle.com/bpel/workflow/configuration"
+                          xmlns:ns0="http://xmlns.oracle.com/VacationRequest"
+                          xmlns:ns1="http://xmlns.oracle.com/VacationRequest">
+      <outcomes>
+         <outcome>APPROVE</outcome>
+         <outcome>REJECT</outcome>
+      </outcomes>
+      <payload xmlSchemaDefinition="xsd/VacationRequestTaskPayload.xsd">
+         <messageAttribute name="VacationRequestProcessRequest"
+                           attributeType="ELEMENT"
+                           type="ns1:VacationRequestProcessRequest"
+                           updatable="true" external="false"/>
+      </payload>
+      <bpelEventListener>false</bpelEventListener>
+      <category type="XPATH"><value></value></category>
+      <showCompleteGraphicalHistory>false</showCompleteGraphicalHistory>
+      <reevalTranslatablesOnUpdate>false</reevalTranslatablesOnUpdate>
+      <preActionMandatoryUserSteps/>
+      <allowInitiatorEditParticipants>false</allowInitiatorEditParticipants>
+      <allowParticipantsEditParticipants>false</allowParticipantsEditParticipants>
+   </workflowConfiguration>
+</taskDefinition>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="task-flow-definition">
+    <default-activity>VacationRequesrtSubmit</default-activity>
+    <view id="FutureApprover">
+      <page>/FutureApprover.jspx</page>
+    </view>
+    <view id="VacationRequesrtSubmit">
+      <page>/VacationRequestSubmit.jspx</page>
+    </view>
+    <view id="StatusPage">
+      <page>/StatusPage.jspx</page>
+    </view>
+    <control-flow-rule>
+      <from-activity-id>VacationRequesrtSubmit</from-activity-id>
+      <control-flow-case>
+        <from-outcome>next</from-outcome>
+        <to-activity-id>FutureApprover</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule>
+      <from-activity-id>FutureApprover</from-activity-id>
+      <control-flow-case>
+        <from-outcome>back</from-outcome>
+        <to-activity-id>VacationRequesrtSubmit</to-activity-id>
+      </control-flow-case>
+      <control-flow-case>
+        <from-outcome>next</from-outcome>
+        <to-activity-id>StatusPage</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule>
+      <from-activity-id>StatusPage</from-activity-id>
+      <control-flow-case>
+        <from-outcome>next</from-outcome>
+        <to-activity-id>VacationRequesrtSubmit</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+  </task-flow-definition>
+</adfc-config>
