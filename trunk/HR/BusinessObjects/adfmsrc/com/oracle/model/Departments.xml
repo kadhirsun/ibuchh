@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.60.13"
+          id="Departments" Package="com.oracle.model"
+          BeanClass="com.oracle.model.Departments" isJavaBased="true">
+  <Attribute Name="departmentId" PrimaryKey="true" Type="java.lang.Long"
+             PrecisionRule="false" Precision="0" Scale="0">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL ResId="com.oracle.model.Departments.departmentId_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute Name="departmentName" Type="java.lang.String">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL ResId="com.oracle.model.Departments.departmentName_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute Name="locationId" Type="java.lang.Long">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL ResId="com.oracle.model.Departments.locationId_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <AccessorAttribute id="employees" IsCollection="false"
+                     BeanClass="com.oracle.model.Employees"
+                     CollectionBeanClass="UpdateableSingleValue"/>
+  <AccessorAttribute id="employeesList" IsCollection="true"
+                     RemoveMethod="removeEmployees" AddMethod="addEmployees"
+                     BeanClass="com.oracle.model.Employees"
+                     CollectionBeanClass="UpdateableCollection">
+    <Properties>
+      <Property Name="RemoveMethod" Value="removeEmployees"/>
+      <Property Name="AddMethod" Value="addEmployees"/>
+    </Properties>
+  </AccessorAttribute>
+  <MethodAccessor IsCollection="false" Type="com.oracle.model.Employees"
+                  BeanClass="com.oracle.model.Employees" id="addEmployees"
+                  ReturnNodeName="Employees">
+    <ParameterInfo id="employees" Type="com.oracle.model.Employees"
+                   isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="com.oracle.model.Employees"
+                  BeanClass="com.oracle.model.Employees" id="removeEmployees"
+                  ReturnNodeName="Employees">
+    <ParameterInfo id="employees" Type="com.oracle.model.Employees"
+                   isStructured="true"/>
+  </MethodAccessor>
+  <ConstructorMethod IsCollection="true" Type="com.oracle.model.Departments"
+                     BeanClass="com.oracle.model.Departments" id="Departments">
+    <ParameterInfo id="departmentId" Type="java.lang.Long"
+                   isStructured="false"/>
+    <ParameterInfo id="departmentName" Type="java.lang.String"
+                   isStructured="false"/>
+    <ParameterInfo id="locationId" Type="java.lang.Long" isStructured="false"/>
+    <ParameterInfo id="employees" Type="com.oracle.model.Employees"
+                   isStructured="true"/>
+  </ConstructorMethod>
+  <ConstructorMethod IsCollection="true" Type="com.oracle.model.Departments"
+                     BeanClass="com.oracle.model.Departments" id="Departments"/>
+  <ResourceBundle>
+    <PropertiesBundle xmlns="http://xmlns.oracle.com/adfm/resourcebundle"
+                      PropertiesFile="com.oracle.model.BusinessObjectsBundle"/>
+  </ResourceBundle>
+</JavaBean>

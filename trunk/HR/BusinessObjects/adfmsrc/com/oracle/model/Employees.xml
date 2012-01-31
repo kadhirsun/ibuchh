@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.60.13"
+          id="Employees" Package="com.oracle.model"
+          BeanClass="com.oracle.model.Employees" isJavaBased="true">
+  <Attribute Name="commissionPct" Type="java.lang.Double">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL ResId="com.oracle.model.Employees.commissionPct_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute Name="email" Type="java.lang.String">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL ResId="com.oracle.model.Employees.email_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute Name="employeeId" PrimaryKey="true" Type="java.lang.Long">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL ResId="com.oracle.model.Employees.employeeId_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute Name="firstName" Type="java.lang.String">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL ResId="com.oracle.model.Employees.firstName_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute Name="hireDate" Type="java.sql.Timestamp">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL ResId="com.oracle.model.Employees.hireDate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute Name="jobId" Type="java.lang.String">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL ResId="com.oracle.model.Employees.jobId_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute Name="lastName" Type="java.lang.String">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL ResId="com.oracle.model.Employees.lastName_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute Name="phoneNumber" Type="java.lang.String">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL ResId="com.oracle.model.Employees.phoneNumber_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute Name="salary" Type="java.lang.Double">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL ResId="com.oracle.model.Employees.salary_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <AccessorAttribute id="employees" IsCollection="false"
+                     BeanClass="com.oracle.model.Employees"
+                     CollectionBeanClass="UpdateableSingleValue"/>
+  <AccessorAttribute id="employeesList" IsCollection="true"
+                     RemoveMethod="removeEmployees" AddMethod="addEmployees"
+                     BeanClass="com.oracle.model.Employees"
+                     CollectionBeanClass="UpdateableCollection">
+    <Properties>
+      <Property Name="RemoveMethod" Value="removeEmployees"/>
+      <Property Name="AddMethod" Value="addEmployees"/>
+    </Properties>
+  </AccessorAttribute>
+  <AccessorAttribute id="departmentsList" IsCollection="true"
+                     RemoveMethod="removeDepartments" AddMethod="addDepartments"
+                     BeanClass="com.oracle.model.Departments"
+                     CollectionBeanClass="UpdateableCollection">
+    <Properties>
+      <Property Name="RemoveMethod" Value="removeDepartments"/>
+      <Property Name="AddMethod" Value="addDepartments"/>
+    </Properties>
+  </AccessorAttribute>
+  <AccessorAttribute id="departments" IsCollection="false"
+                     BeanClass="com.oracle.model.Departments"
+                     CollectionBeanClass="UpdateableSingleValue"/>
+  <MethodAccessor IsCollection="false" Type="com.oracle.model.Employees"
+                  BeanClass="com.oracle.model.Employees" id="addEmployees"
+                  ReturnNodeName="Employees">
+    <ParameterInfo id="employees" Type="com.oracle.model.Employees"
+                   isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="com.oracle.model.Employees"
+                  BeanClass="com.oracle.model.Employees" id="removeEmployees"
+                  ReturnNodeName="Employees">
+    <ParameterInfo id="employees" Type="com.oracle.model.Employees"
+                   isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="com.oracle.model.Departments"
+                  BeanClass="com.oracle.model.Departments" id="addDepartments"
+                  ReturnNodeName="Departments">
+    <ParameterInfo id="departments" Type="com.oracle.model.Departments"
+                   isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="com.oracle.model.Departments"
+                  BeanClass="com.oracle.model.Departments"
+                  id="removeDepartments" ReturnNodeName="Departments">
+    <ParameterInfo id="departments" Type="com.oracle.model.Departments"
+                   isStructured="true"/>
+  </MethodAccessor>
+  <ConstructorMethod IsCollection="true" Type="com.oracle.model.Employees"
+                     BeanClass="com.oracle.model.Employees" id="Employees">
+    <ParameterInfo id="commissionPct" Type="java.lang.Double"
+                   isStructured="false"/>
+    <ParameterInfo id="departments" Type="com.oracle.model.Departments"
+                   isStructured="true"/>
+    <ParameterInfo id="email" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="employeeId" Type="java.lang.Long" isStructured="false"/>
+    <ParameterInfo id="firstName" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="hireDate" Type="java.sql.Timestamp"
+                   isStructured="false"/>
+    <ParameterInfo id="jobId" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="lastName" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="employees" Type="com.oracle.model.Employees"
+                   isStructured="true"/>
+    <ParameterInfo id="phoneNumber" Type="java.lang.String"
+                   isStructured="false"/>
+    <ParameterInfo id="salary" Type="java.lang.Double" isStructured="false"/>
+  </ConstructorMethod>
+  <ConstructorMethod IsCollection="true" Type="com.oracle.model.Employees"
+                     BeanClass="com.oracle.model.Employees" id="Employees"/>
+  <ResourceBundle>
+    <PropertiesBundle xmlns="http://xmlns.oracle.com/adfm/resourcebundle"
+                      PropertiesFile="com.oracle.model.BusinessObjectsBundle"/>
+  </ResourceBundle>
+</JavaBean>
