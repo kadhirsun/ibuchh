@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<DataControlConfigs xmlns="http://xmlns.oracle.com/adfm/configuration"
+                    version="11.1.1.54.1" id="DataControls"
+                    Package="vacationrequesttaskflow">
+  <AdapterDataControl id="VacationRequestTaskFlow_VacationRequestTask"
+                      FactoryClass="oracle.adf.model.adapter.DataControlFactoryImpl"
+                      ImplDef="oracle.bpel.services.datacontrol.XSDDataControlDefinition"
+                      SupportsTransactions="true" SupportsSortCollection="false"
+                      SupportsResetState="false" SupportsRangesize="false"
+                      SupportsFindMode="false" SupportsUpdates="false"
+                      Definition="VacationRequestTaskFlow_VacationRequestTask"
+                      BeanClass="VacationRequestTaskFlow_VacationRequestTask"
+                      xmlns="http://xmlns.oracle.com/adfm/datacontrol">
+    <Source>
+      <XSDDataControl xmlns="http://xmlns.oracle.com/bpel/workflow/task"
+                      SchemaLocation="file:/home/vumapath/jdeveloper/mywork/VacationRequestApp/VacationRequest/xsd/VacationRequestTaskWorkflowTask.xsd"
+                      RootElement="task"
+                      rootelementnamespace="http://xmlns.oracle.com/bpel/workflow/task"
+                      taskLoc="file:/home/vumapath/jdeveloper/mywork/VacationRequestApp/VacationRequest/VacationRequestTask.task"/>
+    </Source>
+  </AdapterDataControl>
+</DataControlConfigs>
