@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <jsp:directive.page contentType="text/html;charset=windows-1252"/>
+  <f:view>
+    <af:document>
+      <af:form>
+        <af:panelGroupLayout halign="center">
+          <af:spacer height="=10"/>
+          <f:facet name="separator">
+            <af:separator visible="false"/>
+          </f:facet>
+          <af:image source="../oracle.gif" inlineStyle="margin:20px" />
+          <af:outputLabel value="List of future approvers " inlineStyle="margin:20px;font-size:15pt;font-weight:bolder" />
+          <af:treeTable value="#{reqobj.model}" var="model" 
+                        contentDelivery="immediate"   
+                        inlineStyle="margin:20px;width:70%;height:100px"
+                    >
+            
+            <af:column sortable="false" rowHeader="true" headerText="Sequence" align="left" width="75px">
+                <af:outputText value="#{model.sequenceNumber}"/>
+            </af:column>
+            
+            <f:facet name="nodeStamp">
+            <af:column sortable="false" headerText="Approvers" width="400px">
+              <af:panelGroupLayout>
+              <af:image source="../#{model.flexString1}" inlineStyle="margin-right:3px; vertical-align:middle; height:14px; width:16px;"/>
+              <af:outputText value="#{model.name}"/>
+             </af:panelGroupLayout>
+            </af:column>
+            </f:facet>
+            <af:column sortable="false" headerText="Partcipant" width="200px">
+
+              <af:outputText value="#{model.label}"/>
+            </af:column>
+          </af:treeTable>
+          <af:toolbar inlineStyle="margin:20px;width:70%;align:right">
+            <af:commandButton action="back" text="Back"/>
+            <af:commandButton action="#{reqobj.submit}" text="Submit"/>
+          </af:toolbar>
+        </af:panelGroupLayout>
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>
