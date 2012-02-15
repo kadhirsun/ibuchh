@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.rackspace.com/"
+            targetNamespace="http://www.rackspace.com/"
+            elementFormDefault="qualified">
+  <xsd:element name="mathInput" type="tMathInput"/>
+  <xsd:element name="mathOutput" type="tMathOutput"/>
+  <xsd:complexType name="tMathInput">
+    <xsd:sequence>
+      <xsd:element name="numberOne" type="xsd:double"/>
+      <xsd:element name="numberTwo" type="xsd:double"/>
+      <xsd:element name="operation" type="tOps"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="tMathOutput">
+    <xsd:sequence>
+      <xsd:element name="result" type="xsd:double"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="tOps">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="add"/>
+      <xsd:enumeration value="subtract"/>
+      <xsd:enumeration value="multiply"/>
+      <xsd:enumeration value="divide"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>

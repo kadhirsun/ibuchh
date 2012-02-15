@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="EmployeeBPELProcess"
+             targetNamespace="http://xmlns.oracle.com/ContinousIntegration/SOAProject4/EmployeeBPELProcess"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:client="http://xmlns.oracle.com/ContinousIntegration/SOAProject4/EmployeeBPELProcess"
+             xmlns:ns1="http://www.rackspace.com/integration/xsd/Employee.xsd"
+             xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	TYPE DEFINITION - List of services participating in this BPEL process
+	The default output of the BPEL designer uses strings as input and 
+	output to the BPEL Process. But you can define or import any XML 
+	Schema type and use them as part of the message types.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->   
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://www.rackspace.com/integration/xsd/Employee.xsd" schemaLocation="xsd/Employee.xsd" />
+		</schema>
+	</wsdl:types>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	MESSAGE TYPE DEFINITION - Definition of the message types used as 
+	part of the port type defintions
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->      
+	<wsdl:message name="EmployeeBPELProcessRequestMessage">
+		<wsdl:part name="payload" element="ns1:employeeDetails" />
+	</wsdl:message>
+
+	<wsdl:message name="EmployeeBPELProcessResponseMessage">
+		<wsdl:part name="payload" element="ns1:name" />
+	</wsdl:message>
+
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PORT TYPE DEFINITION - A port type groups a set of operations into
+	a logical service unit.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- portType implemented by the EmployeeBPELProcess BPEL process -->
+	<wsdl:portType name="EmployeeBPELProcess">
+		<wsdl:operation name="process">
+			<wsdl:input message="client:EmployeeBPELProcessRequestMessage"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<!-- portType implemented by the requester of EmployeeBPELProcess BPEL process
+	for asynchronous callback purposes
+	-->
+	<wsdl:portType name="EmployeeBPELProcessCallback">
+		<wsdl:operation name="processResponse">
+			<wsdl:input message="client:EmployeeBPELProcessResponseMessage"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PARTNER LINK TYPE DEFINITION
+	the EmployeeBPELProcess partnerLinkType binds the provider and
+	requester portType into an asynchronous conversation.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<plnk:partnerLinkType name="EmployeeBPELProcess">
+		<plnk:role name="EmployeeBPELProcessProvider" portType="client:EmployeeBPELProcess"/>
+		<plnk:role name="EmployeeBPELProcessRequester" portType="client:EmployeeBPELProcessCallback"/>
+	</plnk:partnerLinkType>
+</wsdl:definitions>

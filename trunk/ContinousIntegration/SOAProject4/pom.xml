@@ -1,0 +1,96 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ContinousIntegration</groupId>
+  <artifactId>SOAProject4</artifactId>
+  <version>1.0</version>
+  <!--scm>
+    <connection>scm:svn:svn+ssh://mark@ofm1.au.oracle.com/home/mark/svnrepos/soaProject2/trunk</connection>
+    <developerConnection>scm:svn:svn+ssh://mark@ofm1.au.oracle.com/home/mark/svnrepos/soaProject2/trunk</developerConnection>
+  </scm>-->
+  <parent>
+    <groupId>ContinousIntegration</groupId>
+    <artifactId>ContinousIntegration</artifactId>
+    <version>1.0</version>
+  </parent>
+  <dependencies></dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.6</version>
+        <executions>
+          <execution>
+            <id>sca-compile</id>
+            <phase>compile</phase>
+            <configuration>
+              <target>
+                <property name="scac.input" value="${basedir}/composite.xml"/>
+                <ant antfile="C:/Oracle/Middleware/Oracle_SOA1/bin/ant-sca-compile.xml"
+                     dir="C:/Oracle/Middleware/Oracle_SOA1/bin" target="scac"/>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>sca-package</id>
+            <phase>package</phase>
+            <configuration>
+              <target>
+                <property name="build.compiler" value="extJavac"/>
+                <property name="compositeName" value="${project.artifactId}"/>
+                <property name="compositeDir" value="${basedir}"/>
+                <property name="revision" value="${project.version}"/>
+                <ant antfile="C:/Oracle/Middleware/Oracle_SOA1/bin/ant-sca-package.xml"
+                     dir="C:/Oracle/Middleware/Oracle_SOA1/bin"
+                     target="package"/>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>sca-deploy</id>
+            <phase>deploy</phase>
+            <configuration>
+              <target>
+                <property name="serverURL" value="http://localhost:7001"/>
+                <property name="user" value="weblogic"/>
+                <property name="password" value="welcome1"/>
+                <property name="sarLocation"
+                          value="${basedir}/deploy/sca_${project.artifactId}_rev${project.version}.jar"/>
+                <property name="overwrite" value="true"/>
+                <property name="forceDefault" value="true"/>
+                <property name="partition" value="default"/>
+                <ant antfile="C:/Oracle/Middleware/Oracle_SOA1/bin/ant-sca-deploy.xml"
+                     dir="C:/Oracle/Middleware/Oracle_SOA1/bin"
+                     target="deploy"/>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <distributionManagement>
+    <!-- use the following if you're not using a snapshot version. -->
+    <repository>
+      <id>localrepo</id>
+      <name>local repository</name>
+      <url>file:///C:\apache-maven-3.0.3\repository</url>
+    </repository>
+    <!-- use the following if you ARE using a snapshot version. -->
+    <snapshotRepository>
+      <id>localSnapshot</id>
+      <name>local snapshot repository</name>
+      <url>file:///C:\apache-maven-3.0.3\repository</url>
+    </snapshotRepository>
+  </distributionManagement>
+</project>
