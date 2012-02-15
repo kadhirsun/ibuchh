@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>ContinousIntegration</groupId>
+  <artifactId>ContinousIntegration</artifactId>
+  <version>1.0</version>
+  <packaging>pom</packaging>
+<!--
+  <scm>
+    <connection>scm:svn:https://administrator@bpm.mark.oracle.com/svn/OJ/trunk</connection>
+    <developerConnection>scm:svn:https://administrator@bpm.mark.oracle.com/svn/OJ/trunk</developerConnection>
+  </scm>
+-->
+  <modules>
+    <module>SOAProject1</module>
+    <module>SOAProject2</module>
+	<module>SOAProject3</module>
+	<module>SOAProject4</module>
+  </modules>
+
+  <build>
+    <plugins>
+      <!-- AGGREGATE JUNIT TEST RESULTS -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>2.4.2</version>
+        <configuration>
+          <aggregate>true</aggregate>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <distributionManagement>
+    <!-- use the following if you're not using a snapshot version. -->
+    <repository>
+      <id>localrepo</id>
+      <name>local repository</name>
+      <url>file:///C:\apache-maven-3.0.3\repository</url>
+    </repository>
+    <!-- use the following if you ARE using a snapshot version. -->
+    <snapshotRepository>
+      <id>localSnapshot</id>
+      <name>local snapshot repository</name>
+      <url>file:///C:\apache-maven-3.0.3\repository</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+</project>
+
