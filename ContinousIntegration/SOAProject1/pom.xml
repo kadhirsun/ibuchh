@@ -58,9 +58,9 @@
             <phase>deploy</phase>
             <configuration>
               <target>
-                <property name="serverURL" value="http://localhost:7001"/>
+                <property name="serverURL" value="http://10.12.72.166:8002"/>
                 <property name="user" value="weblogic"/>
-                <property name="password" value="welcome1"/>
+                <property name="password" value="Test1234"/>
                 <property name="sarLocation"
                           value="${basedir}/deploy/sca_${project.artifactId}_rev${project.version}.jar"/>
                 <property name="overwrite" value="true"/>
