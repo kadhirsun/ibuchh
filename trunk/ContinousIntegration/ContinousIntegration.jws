@@ -15,7 +15,6 @@
    <list n="listOfChildren">
       <hash><url n="URL" path="SOAProject1/SOAProject1.jpr"/></hash>
       <hash><url n="URL" path="SOAProject2/SOAProject2.jpr"/></hash>
-      <hash><url n="URL" path="SOAProject3/SOAProject3.jpr"/></hash>
       <hash><url n="URL" path="SOAProject4/SOAProject4.jpr"/></hash>
    </list>
 </jws:workspace>
