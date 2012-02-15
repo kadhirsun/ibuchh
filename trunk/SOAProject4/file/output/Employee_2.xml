@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?><employeeDetails xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.rackspace.com/integration/xsd/Employee.xsd ../../xsd/Employee.xsd" xmlns="http://www.rackspace.com/integration/xsd/Employee.xsd">
-  <name>
-    <firstName>Ahmed</firstName>
-    <lastName>Abdullah</lastName>
-  </name>
-  <employeeNo>12344444</employeeNo>
-</employeeDetails>
