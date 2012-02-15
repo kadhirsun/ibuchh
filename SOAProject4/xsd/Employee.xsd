@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:employee="http://www.rackspace.com/integration/xsd/Employee.xsd"
+            targetNamespace="http://www.rackspace.com/integration/xsd/Employee.xsd"
+            elementFormDefault="qualified">
+  <xsd:element name="employeeDetails" type="employee:tEmployeeDetails"/>
+  <xsd:complexType name="tEmployeeDetails">
+    <xsd:sequence>
+      <xsd:element ref="employee:name"/>
+      <xsd:element name="employeeNo" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="name" type="employee:tName"/>
+  <xsd:complexType name="tName">
+    <xsd:sequence>
+      <xsd:element name="firstName" type="xsd:string"/>
+      <xsd:element name="lastName" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
