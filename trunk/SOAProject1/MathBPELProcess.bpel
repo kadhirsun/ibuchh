@@ -1,0 +1,264 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Wed Feb 08 18:58:34 CST 2012
+  Author:  IBUCHH_US
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="MathBPELProcess"
+               targetNamespace="http://xmlns.oracle.com/ContinousIntegration/SOAProject1/MathBPELProcess"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/ContinousIntegration/SOAProject1/MathBPELProcess"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://oracle.com.soa/"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         xmlns:ns2="http://www.rackspace.com/"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap">
+
+    <import namespace="http://xmlns.oracle.com/ContinousIntegration/SOAProject1/MathBPELProcess" location="MathBPELProcess.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="mathbpelprocess_client" partnerLinkType="client:MathBPELProcess" myRole="MathBPELProcessProvider"/>
+    <partnerLink name="MathSpring.mathService"
+                 partnerLinkType="ns1:MathSpring.mathService"
+                 partnerRole="IMath"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:MathBPELProcessRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:MathBPELProcessResponseMessage"/>
+    <variable name="operation" type="xsd:string"/>
+    <variable name="Invoke_Add_add_InputVariable" messageType="ns1:addInput"/>
+    <variable name="Invoke2_subtract_InputVariable"
+              messageType="ns1:subtractInput"/>
+    <variable name="Invoke3_multiply_InputVariable"
+              messageType="ns1:multiplyInput"/>
+    <variable name="Invoke4_divide_InputVariable"
+              messageType="ns1:divideInput"/>
+    <variable name="numberOne" type="xsd:double"/>
+    <variable name="numberTwo" type="xsd:double"/>
+    <variable name="Invoke_Divide_divide_OutputVariable"
+              messageType="ns1:divideOutput"/>
+    <variable name="Invoke_Add_add_OutputVariable" messageType="ns1:addOutput"/>
+    <variable name="Invoke_Subtract_subtract_OutputVariable"
+              messageType="ns1:subtractOutput"/>
+    <variable name="Invoke_Multiply_multiply_OutputVariable"
+              messageType="ns1:multiplyOutput"/>
+    <variable name="result" type="xsd:double"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in MathBPELProcess.wsdl) -->
+    <receive name="receiveInput" partnerLink="mathbpelprocess_client" portType="client:MathBPELProcess" operation="process" variable="inputVariable" createInstance="yes"/>
+
+    <!-- Generate reply to synchronous request -->
+    <assign name="Assign_Operation">
+      <copy>
+        <from>$inputVariable.payload/ns2:operation</from>
+        <to>$operation</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns2:numberOne</from>
+        <to>$numberOne</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns2:numberTwo</from>
+        <to>$numberTwo</to>
+      </copy>
+    </assign>
+    <if name="IfOperation">
+      <documentation>add</documentation>
+      <condition>$operation='add'</condition>
+      <sequence name="Sequence1">
+        <scope name="Scope1">
+          <bpelx:annotation>
+            <bpelx:general>
+              <bpelx:property name="userLabel">AddScope</bpelx:property>
+            </bpelx:general>
+          </bpelx:annotation>
+          <sequence>
+            <assign name="Assign1">
+              <copy>
+                <from>$numberOne</from>
+                <to>$Invoke_Add_add_InputVariable.parameters/arg0</to>
+              </copy>
+              <copy>
+                <from>$numberTwo</from>
+                <to>$Invoke_Add_add_InputVariable.parameters/arg1</to>
+              </copy>
+            </assign>
+            <invoke name="Invoke_Add" partnerLink="MathSpring.mathService"
+                    portType="ns1:IMath" operation="add"
+                    inputVariable="Invoke_Add_add_InputVariable"
+                    bpelx:invokeAsDetail="no"
+                    outputVariable="Invoke_Add_add_OutputVariable"/>
+            <assign name="Assign5">
+              <copy>
+                <from>$Invoke_Add_add_OutputVariable.parameters/return</from>
+                <to>$result</to>
+              </copy>
+            </assign>
+          </sequence>
+        </scope>
+      </sequence>
+      <elseif>
+        <documentation>subtract</documentation>
+        <condition>$operation='subtract'</condition>
+        <sequence name="Sequence2">
+          <scope name="Scope2">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">SubtractScope</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <sequence>
+              <assign name="Assign2">
+                <copy>
+                  <from>$numberOne</from>
+                  <to>$Invoke2_subtract_InputVariable.parameters/arg0</to>
+                </copy>
+                <copy>
+                  <from>$numberTwo</from>
+                  <to>$Invoke2_subtract_InputVariable.parameters/arg1</to>
+                </copy>
+              </assign>
+              <invoke name="Invoke_Subtract"
+                      partnerLink="MathSpring.mathService" portType="ns1:IMath"
+                      operation="subtract"
+                      inputVariable="Invoke2_subtract_InputVariable"
+                      bpelx:invokeAsDetail="no"
+                      outputVariable="Invoke_Subtract_subtract_OutputVariable"/>
+              <assign name="Assign6">
+                <copy>
+                  <from>$Invoke_Subtract_subtract_OutputVariable.parameters/return</from>
+                  <to>$result</to>
+                </copy>
+              </assign>
+            </sequence>
+          </scope>
+        </sequence>
+      </elseif>
+      <elseif>
+        <documentation>multiply</documentation>
+        <condition>$operation='multiply'</condition>
+        <sequence name="Sequence3">
+          <scope name="Scope3">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">MultiplyScope</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <sequence>
+              <assign name="Assign3">
+                <copy>
+                  <from>$numberOne</from>
+                  <to>$Invoke3_multiply_InputVariable.parameters/arg0</to>
+                </copy>
+                <copy>
+                  <from>$numberTwo</from>
+                  <to>$Invoke3_multiply_InputVariable.parameters/arg1</to>
+                </copy>
+              </assign>
+              <invoke name="Invoke_Multiply"
+                      partnerLink="MathSpring.mathService" portType="ns1:IMath"
+                      operation="multiply"
+                      inputVariable="Invoke3_multiply_InputVariable"
+                      bpelx:invokeAsDetail="no"
+                      outputVariable="Invoke_Multiply_multiply_OutputVariable"/>
+              <assign name="Assign7">
+                <copy>
+                  <from>$Invoke_Multiply_multiply_OutputVariable.parameters/return</from>
+                  <to>$result</to>
+                </copy>
+              </assign>
+            </sequence>
+          </scope>
+        </sequence>
+      </elseif>
+      <else>
+        <documentation>divide</documentation>
+        <sequence name="Sequence4">
+          <scope name="Scope4">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">DivideScope</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <sequence>
+              <assign name="Assign4">
+                <copy>
+                  <from>$numberOne</from>
+                  <to>$Invoke4_divide_InputVariable.parameters/arg0</to>
+                </copy>
+                <copy>
+                  <from>$numberTwo</from>
+                  <to>$Invoke4_divide_InputVariable.parameters/arg1</to>
+                </copy>
+              </assign>
+              <invoke name="Invoke_Divide" partnerLink="MathSpring.mathService"
+                      portType="ns1:IMath" operation="divide"
+                      inputVariable="Invoke4_divide_InputVariable"
+                      bpelx:invokeAsDetail="no"
+                      outputVariable="Invoke_Divide_divide_OutputVariable"/>
+              <assign name="Assign8">
+                <copy>
+                  <from>$Invoke_Divide_divide_OutputVariable.parameters/return</from>
+                  <to>$result</to>
+                </copy>
+              </assign>
+            </sequence>
+          </scope>
+        </sequence>
+      </else>
+    </if>
+    <assign name="AssignOutput">
+      <copy>
+        <from>$result</from>
+        <to>$outputVariable.payload/ns2:result</to>
+      </copy>
+    </assign>
+    <reply name="replyOutput" partnerLink="mathbpelprocess_client" portType="client:MathBPELProcess" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>
