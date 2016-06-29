@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from OrderSystemImplService WSDL service -->
+
+  <service name="OrderSystemImpl" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://ws.hcl.net"/>
+      <parameter name="wsdlServiceElement" value="OrderSystemImplService"/>
+      <parameter name="schemaQualified" value="http://ws.hcl.net"/>
+      <parameter name="wsdlServicePort" value="OrderSystemImpl"/>
+      <parameter name="className" value="net.hcl.ws.OrderSystemImpl"/>
+      <parameter name="wsdlPortType" value="OrderSystemImpl"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://ws.hcl.net" xmlns:retNS="http://ws.hcl.net" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="updateOrder" qname="operNS:updateOrder" returnQName="retNS:updateOrderReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://ws.hcl.net" xmlns:tns="http://ws.hcl.net" qname="pns:o" type="tns:Order"/>
+      </operation>
+      <operation xmlns:operNS="http://ws.hcl.net" xmlns:retNS="http://ws.hcl.net" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="cancelOrder" qname="operNS:cancelOrder" returnQName="retNS:cancelOrderReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://ws.hcl.net" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:oId" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://ws.hcl.net" xmlns:retNS="http://ws.hcl.net" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="createOrder" qname="operNS:createOrder" returnQName="retNS:createOrderReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://ws.hcl.net" xmlns:tns="http://ws.hcl.net" qname="pns:o" type="tns:Order"/>
+      </operation>
+      <parameter name="allowedMethods" value="createOrder cancelOrder updateOrder"/>
+
+      <typeMapping xmlns:ns="http://ws.hcl.net" qname="ns:Order" type="java:net.hcl.ws.Order" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>

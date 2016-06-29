@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://ws.hcl.net" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://ws.hcl.net" xmlns:intf="http://ws.hcl.net" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://ws.hcl.net" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="updateOrder">
+    <complexType>
+     <sequence>
+      <element name="o" type="impl:Order"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="Order">
+    <sequence>
+     <element name="customerId" nillable="true" type="xsd:string"/>
+     <element name="itemType" nillable="true" type="xsd:string"/>
+     <element name="orderId" nillable="true" type="xsd:string"/>
+     <element name="price" type="xsd:float"/>
+     <element name="prodName" nillable="true" type="xsd:string"/>
+     <element name="qty" type="xsd:int"/>
+     <element name="status" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="updateOrderResponse">
+    <complexType>
+     <sequence>
+      <element name="updateOrderReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="cancelOrder">
+    <complexType>
+     <sequence>
+      <element name="oId" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="cancelOrderResponse">
+    <complexType>
+     <sequence>
+      <element name="cancelOrderReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="createOrder">
+    <complexType>
+     <sequence>
+      <element name="o" type="impl:Order"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="createOrderResponse">
+    <complexType>
+     <sequence>
+      <element name="createOrderReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="cancelOrderResponse">
+
+      <wsdl:part element="impl:cancelOrderResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateOrderResponse">
+
+      <wsdl:part element="impl:updateOrderResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="cancelOrderRequest">
+
+      <wsdl:part element="impl:cancelOrder" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="createOrderResponse">
+
+      <wsdl:part element="impl:createOrderResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateOrderRequest">
+
+      <wsdl:part element="impl:updateOrder" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="createOrderRequest">
+
+      <wsdl:part element="impl:createOrder" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="OrderSystemImpl">
+
+      <wsdl:operation name="updateOrder">
+
+         <wsdl:input message="impl:updateOrderRequest" name="updateOrderRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:updateOrderResponse" name="updateOrderResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="cancelOrder">
+
+         <wsdl:input message="impl:cancelOrderRequest" name="cancelOrderRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:cancelOrderResponse" name="cancelOrderResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createOrder">
+
+         <wsdl:input message="impl:createOrderRequest" name="createOrderRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:createOrderResponse" name="createOrderResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="OrderSystemImplSoapBinding" type="impl:OrderSystemImpl">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="updateOrder">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="updateOrderRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="updateOrderResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="cancelOrder">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="cancelOrderRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="cancelOrderResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createOrder">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="createOrderRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="createOrderResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="OrderSystemImplService">
+
+      <wsdl:port binding="impl:OrderSystemImplSoapBinding" name="OrderSystemImpl">
+
+         <wsdlsoap:address location="http://localhost:8092/OrderSystemPrj2/services/OrderSystemImpl"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
